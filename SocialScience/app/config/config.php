@@ -10,6 +10,5 @@ define('DB_PASSWORD','');
 define('URL_APP', dirname(dirname(__FILE__)));
 define('URL_PROJECT' , 'http://localhost/SocialScience');
 define('NAME_PROJECT', 'SocialScience');
-define('CSSPATH', '../public/css/style.css');
 
 

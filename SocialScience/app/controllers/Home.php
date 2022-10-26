@@ -5,12 +5,30 @@ class Home extends Controller
     public function __construct()
     {
        $this->usuario = $this->model('usuario');
+       $this->publicaciones = $this->model('publicar');
     }    
 
     public function index()
     {
         if(isset($_SESSION['logueado'])){
-            $this->view('/pages/home');
+            $datosUsuario = $this->usuario->getUsuario($_SESSION['usuario']);
+            $datosPerfil = $this->usuario->getPerfil($_SESSION['logueado']);
+
+            $datosPublicaciones = $this->publicaciones->getPublicaciones();
+
+            if($datosPerfil){
+                $datosRed = [
+                    'usuario' => $datosUsuario,
+                    'perfil'  => $datosPerfil
+                ];
+                $this->view('pages/home', $datosRed);
+            }else{
+                $this->view('pages/perfil/completarPerfil', $_SESSION['logueado']);
+            }
+
+            
+
+            $this->view('/pages/home' , $datosUsuario);
         } else {
             redirection('/home/login');
         }
@@ -75,6 +93,46 @@ class Home extends Controller
                 $this->view('pages/login-register/register');
             }
         }
+    }
+
+    public function insertarRegistroPerfil(){
+        //Esta dirección hay que mejorarla//
+        $carpeta = 'C:/xamp/htdocs/SocialScience/public/img/imagenesPerfil/';
+        opendir($carpeta);
+        $rutaImagen = 'img/imagenesPerfil/' .$_FILES['imagen']['name'];
+        $ruta = $carpeta .$_FILES['imagen']['name'];
+        copy($_FILES['imagen']['tmp_name'], $ruta);
+
+        $datos = [
+            'idusuario' => trim($_POST['id_user']),
+            'nombre' => trim($_POST['nombre']),
+            'ruta' => $rutaImagen
+        ];
+
+        if($this->usuario->insertarPerfil($datos)){
+            redirection('/home');
+        }else{
+            echo 'El perfil no se ha guardado';
+        }
+    }
+
+    public function cambiarImagen(){
+        $carpeta = 'C:/xamp/htdocs/SocialScience/public/img/imagenesPerfil//';
+        opendir($carpeta);
+        $rutaImagen = 'img/imagenesPerfil/' . $_FILES['imagen']['name'];
+        $ruta = $carpeta . $_FILES['imagen']['name'];
+        copy($_FILES['imagen']['name'] , $ruta);
+
+        $datos = [
+        
+        ];
+        if($this-> perfil->editarFoto($datos)){
+            redirection('/home');
+        }else{
+            echo 'El perfil no se ha guardado';
+        }
+
+
     }
 
     public function logout()

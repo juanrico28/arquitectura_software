@@ -1,12 +1,12 @@
 <?php
-include '../public/css/style.css';
-include_once URL_APP . '/views/custom/header.php';
+
+include URL_APP . '/views/custom/header.php';
 
 ?>
 
 <div class ="container-center center">
     <div class = "container-content center">
-        <div class ="content-action-center">
+        <div class ="content-action center">
             <h4> Registrarme </h4>
             <form action="<?php echo URL_PROJECT?>/home/register" method="POST">
                 <input type="correo" name="correo"  placeholder="Correo" required>
@@ -28,9 +28,7 @@ include_once URL_APP . '/views/custom/header.php';
                 <span class = "mr-2">¿Ya tienes una cuenta?</span><a href="<?php echo URL_PROJECT?>/home/login">Ingresar</a>
             </div>
         </div>
-        <div class ="content-image center"> 
-            <img src="<?php echo URL_PROJECT;?>/img/vector.png" alt="Hombre sentando en una computadora">
-        </div>
+        
     </div>
 </div>
 

@@ -15,6 +15,14 @@ header {
     border: 0;
     border-top-left-radius: 21px;
     border-bottom-left-radius: 21px;
+    padding: .3em 0 .3em 9em;
+}
+
+.btn-form{
+    border: 0;
+    width: 40px;
+    border-top-left-radius: 21px;
+    border-bottom-left-radius: 21px;
     padding: .3em .5em .3em 0;
     background-color: #ffffff;  
     color: #a5a5a5;
